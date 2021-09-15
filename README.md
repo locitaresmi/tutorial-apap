@@ -32,6 +32,7 @@ berikut: http://localhost:8080/agensi/add?idAgensi=1&namaAgensi=Papa%20APAP&alam
 
 5. Tambahkan 1 contoh Travel Agensi lainnya sesukamu. Lalu cobalah untuk mengakses http://localhost:8080/agensi/viewAll, apa yang akan ditampilkan? Sertakan juga bukti screenshotmu.
 
+	Setelah mengakses link tersebut, halaman yang ditampilkan adalah daftar dari seluruh travel agensi yang telah terdaftar (di-add) sebelumnya. Berikut adalah screenshotnya.
 	![Screenshot No. 5](https://i.ibb.co/P4HyV3Y/Soal-Nomor-5.jpg)
 
 ## [Tutorial 1](https://scele.cs.ui.ac.id/pluginfile.php/120294/mod_resource/content/2/Tutorial%201%20%28A%2C%20B%2C%20C%29.pdf)
