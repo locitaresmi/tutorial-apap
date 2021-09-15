@@ -1,9 +1,38 @@
 
+
 # Tutorial APAP
 
 ## Authors
 
 * **Wening Dyah Locitaresmi** - *1906299194* - *B*
+
+## [Tutorial 2](https://scele.cs.ui.ac.id/pluginfile.php/121316/mod_resource/content/1/Tutorial%202%20Kelas%20B.pdf)
+
+### Pertanyaan Tutorial
+
+1. Cobalah untuk menambahkan sebuah Agensi dengan mengakses link
+berikut: http://localhost:8080/agensi/add?idAgensi=1&namaAgensi=Papa%20APAP&alamat=Maung%20Fasilkom&noTelepon=081xxx Apa yang terjadi? Jelaskan mengapa hal tersebut dapat terjadi
+
+	Saat menjalankan link tersebut, halaman yang muncul adalah Whitelabel Error Page dengan error message-nya, yaitu, "Required URI template variable 'idAgensi' for method parameter type String is not present". Hal ini disebabkan karena belum adanya template yang dapat merender variabel idAgensi. IdAgensi tersebut berasal dari kode di bawah ini.
+	>model.addAttribute("idAgensi", idAgensi);
+	
+2. Menurut kamu anotasi **@Autowired** pada class Controller tersebut merupakan implementasi dari konsep apa? Dan jelaskan secara singkat cara kerja @Autowired tersebut dalam konteks service dan controller yang telah kamu buat.
+
+	Anotasi @Autowired merupakan implementasi dari konsep Dependency Injection (DI). @Autowired digunakan pada TravelAgensiController untuk meminta aplikasi (PergipergiApplication) untuk melakukan injection dari instance TravelAgensiService pada controller tersebut. Hal ini dimaksudkan agar controller dapat mengakses method yang telah diimplementasikan oleh TravelAgensiServiceImpl. 
+
+3. Cobalah untuk menambahkan sebuah Agensi dengan mengakses link  
+berikut: http://localhost:8080/agensi/add?idAgensi=1&namaAgensi=Papa%20APAP&alamat=Maung%20Fasilkom Apa yang terjadi? Jelaskan mengapa hal tersebut dapat terjadi.
+
+	Ketika link tersebut diakses, halaman yang akan muncul adalah Whitelabel Error Page dengan error message-nya, yaitu, "Required request parameter 'noTelepon' for method parameter type String is not present". Error tersebut terjadi karena atribut noTelepon merupakan atribut yang wajib diisi ketika melakukan proses add data. Parameter yang membuatnya wajib diisi terdapat pada kode berikut.
+	>@RequestParam(value = "noTelepon", required = true) String noTelepon,
+
+4. Jika Papa APAP ingin melihat Travel Agensi dengan nama Papa APAP, link apa yang harus diakses?
+
+	Jika Papa ingin melihat Travel Agensi dengan nama tersebut, Papa dapat mengakses link http://localhost:8080/agensi/view?idAgensi=1 atau http://localhost:8080/agensi/view/id-agensi/1 (yang saat ini berfungsi pada program karena telah diubah menggunakan @GetMapping). Papa harus mengaksesnya menggunakan id dari agensi karena parameter yang diterima oleh metode view pada program hanya id agensi saja.
+
+5. Tambahkan 1 contoh Travel Agensi lainnya sesukamu. Lalu cobalah untuk mengakses http://localhost:8080/agensi/viewAll, apa yang akan ditampilkan? Sertakan juga bukti screenshotmu.
+
+	![Screenshot No. 5](https://i.ibb.co/P4HyV3Y/Soal-Nomor-5.jpg)
 
 ## [Tutorial 1](https://scele.cs.ui.ac.id/pluginfile.php/120294/mod_resource/content/2/Tutorial%201%20%28A%2C%20B%2C%20C%29.pdf)
 
