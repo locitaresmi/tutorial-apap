@@ -24,11 +24,12 @@ public class TravelAgensiController {
             @RequestParam(value = "namaAgensi", required = true) String namaAgensi,
             @RequestParam(value = "alamat", required = true) String alamat,
             @RequestParam(value = "noTelepon", required = true) String noTelepon,
+            @RequestParam(value = "kodeTravel", required = true) Integer kodeTravel,
             Model model
     ){
 
         //Membuat objek TravelAgensiModel
-        TravelAgensiModel agensi = new TravelAgensiModel(idAgensi, namaAgensi, alamat, noTelepon);
+        TravelAgensiModel agensi = new TravelAgensiModel(idAgensi, namaAgensi, alamat, noTelepon, kodeTravel);
 
         //Memanggil servis addAgensi
         travelAgensiService.addAgensi(agensi);
@@ -122,4 +123,34 @@ public class TravelAgensiController {
 
         return "delete-agensi";
     }
+
+    @GetMapping("agensi/update/kodeTravel/{kode}")
+    public String updateAgensi2(
+            @PathVariable("kode") Integer kodeTravel,
+            Model model
+    ){
+
+        if(kodeTravel/2 == 0){
+            return "error-kodeTravel";
+        }
+
+        else{
+
+            TravelAgensiModel agensi = travelAgensiService.getAgensiByKodeTravel(kodeTravel);
+
+            if(agensi == null) {
+                return "error";
+            }
+
+            model.addAttribute("kodeTravelLama", agensi.getKodeTravel());
+            agensi.setKodeTravel(kodeTravel);
+
+            //Add variabel kodetravel untuk dirender pada thymeleaf
+            model.addAttribute("kodeTravelBaru", kodeTravel);
+
+            return "update-kodeTravel";
+        }
+    }
+
+    
 }

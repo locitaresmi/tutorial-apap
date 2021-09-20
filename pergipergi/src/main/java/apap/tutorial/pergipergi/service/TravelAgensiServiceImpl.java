@@ -35,4 +35,12 @@ public class TravelAgensiServiceImpl implements TravelAgensiService{
         }
         return null;
     }
+
+    @Override
+    public TravelAgensiModel getAgensiByKodeTravel(Integer kodeTravel){
+        for (TravelAgensiModel i : listAgensi){
+            if (i.getKodeTravel() == kodeTravel) return i;
+        }
+        return null;
+    }
 }
