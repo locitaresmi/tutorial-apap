@@ -1,38 +1,50 @@
 package apap.tutorial.pergipergi.service;
 
+import apap.tutorial.pergipergi.model.TourGuideModel;
 import apap.tutorial.pergipergi.model.TravelAgensiModel;
+import apap.tutorial.pergipergi.repository.TravelAgensiDb;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional
 public class TravelAgensiServiceImpl implements TravelAgensiService{
 
-    private List<TravelAgensiModel> listAgensi;
+    @Autowired
+    TravelAgensiDb travelAgensiDb;
 
-    public TravelAgensiServiceImpl(){
-        listAgensi = new ArrayList<>();
-    }
-
-    //Method untuk menambahkan agensi
     @Override
-    public void addAgensi(TravelAgensiModel travelAgensiModel){
-        listAgensi.add(travelAgensiModel);
+    public void addAgensi(TravelAgensiModel travelAgensi) {
+        travelAgensiDb.save(travelAgensi);
     }
 
-    //Method untuk mendapatkan daftar agensi yang telah tersimpan
     @Override
-    public List<TravelAgensiModel> getListAgensi(){
-        return listAgensi;
+    public List<TravelAgensiModel> getListAgensi() {
+        return travelAgensiDb.findByOrderByNamaAgensiAsc();
     }
 
-    //Method untuk mendapatkan data agensi berdasarkan id agensi
     @Override
-    public TravelAgensiModel getAgensiByidAgensi(String idAgensi){
-        for (TravelAgensiModel i : listAgensi){
-            if (i.getIdAgensi().equals(idAgensi)) return i;
-        }
-        return null;
+    public TravelAgensiModel getAgensiByNoAgensi(Long noAgensi) {
+        Optional<TravelAgensiModel> agensi = travelAgensiDb.findByNoAgensi(noAgensi);
+        if(agensi.isPresent()) return agensi.get();
+        else return null;
     }
+
+    @Override
+    public TravelAgensiModel updateAgensi(TravelAgensiModel travelAgensi) {
+        travelAgensiDb.save(travelAgensi);
+        return travelAgensi;
+    }
+
+    @Override
+    public TravelAgensiModel deleteAgensi(TravelAgensiModel travelAgensi) {
+        TravelAgensiModel deletedAgensi = travelAgensi;
+        travelAgensiDb.delete(travelAgensi);
+        return deletedAgensi;
+    }
+
 }
