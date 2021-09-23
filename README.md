@@ -1,10 +1,46 @@
-
-
 # Tutorial APAP
 
 ## Authors
 
 * **Wening Dyah Locitaresmi** - *1906299194* - *B*
+
+## [Tutorial 3](https://scele.cs.ui.ac.id/pluginfile.php/122168/mod_resource/content/1/Tutorial%203%20Kelas%20B.pdf)
+
+### Pertanyaan Tutorial
+1. Tolong jelaskan secara singkat apa kegunaan dari anotasi-anotasi yang ada pada model (@AllArgsConstructor, @NoArgsConstructor, @Setter, @Getter, @Entity, @Table)
+	
+* @**AllArgsConstructor** digunakan untuk membuat constructor dengan parameter seluruh atribut dalam suatu class.
+* @**NoArgsConstructor** digunakan untuk membuat constructor yang tidak memiliki parameter apapun.
+* @**Setter** digunakan untuk menambahkan method setter di setiap atribut yang ada dalam suatu class.
+* @**Getter** digunakan untuk menambahkan method getter di setiap atribut yang ada dalam suatu class.
+* @**Entity** digunakan untuk memberikan tanda bahwa suatu class merupakan suatu 'entity' yang akan di-mapping ke dalam database.
+* @**Table** digunakan untuk memberikan nama database yang akan digunakan untuk entity mapping.
+
+	(Lombok)
+
+2. Pada class TravelAgensiDb, terdapat method findByNoAgensi, apakah kegunaan dari method tersebut?
+
+	Method findByNoAgensi digunakan untuk mencari objek Travel Agensi berdasarkan atribut noAgensi-nya.
+
+3. Jelaskan perbedaan kegunaan dari anotasi @**JoinTable** dan @**JoinColumn**
+
+	@JoinTable digunakan ketika kita ingin menyimpan id dari kedua entity di dalam table yang berbeda. Sementara @JoinColumn digunakan ketika kita ingin menyimpan id dari entity yang lain di column yang berbeda di dalam table yang sama. @JoinTable digunakan ketika kedua entity memiliki hubungan secara langsung (misalnya sebagai foreign key). Sementara @JoinColumn digunakan ketika hubungan antara kedua entity diatur di table yang lain.
+	
+	(JPA)
+
+4. Pada class TourGuideModel, digunakan anotasi @JoinColumn pada atribut agensi, apa kegunaan dari name, referencedColumnName, dan nullable dalam anotasi tersebut? dan apa perbedaan nullable dan penggunaan anotasi @NotNull
+
+* **name**: berisi nama dari column (atribut) yang dipilih sebgai foreign key
+* **referencedColumnName**: berisi nama dari column lain yang di-reference oleh column yang menjadi foreign key
+* **nullable**: menentukan apakah column yang dipilih dapat berisi nilai null atau tidak
+
+	Perbedaan antara nullable dan @NotNull adalah pelaku validasinya. Validasi @NotNull dilakukan oleh aplikasi Java, sementara validasi nullable dilakukan oleh database. Ketika menggunakan @NotNull, apabila validasi pada aplikasi ternyata gagal, maka tidak ada perintah SQL apapun yang akan dieksekusi. Sebaliknya, ketika menggunakan nullable, perintah SQL akan dieksekusi karena pengecekan dilakukan pada database.
+
+5. Jelaskan kegunaan FetchType.LAZY, CascadeType.ALL, dan FetchType.EAGER
+
+* **FetchType. LAZY** digunakan untuk mengembalikan data dari database sesuai data yang diminta
+* **FetchType.EAGER** digunakan untuk mengembalikan seluruh data dari database (termasuk data yang tidak diminta)
+* **CascadeType.ALL** digunakan untuk 'menyebarkan' seluruh operasi yang dimiliki parent entity kepada child entity-nya
 
 ## [Tutorial 2](https://scele.cs.ui.ac.id/pluginfile.php/121316/mod_resource/content/1/Tutorial%202%20Kelas%20B.pdf)
 
