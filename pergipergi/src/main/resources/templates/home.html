@@ -10,6 +10,12 @@
             <div class="justify-content-center">
                 <h2>Welcome to Pergi Pergi!</h2>
                 <br>
+                <form th:action="@{/agensi/view}">
+                    No Agensi : <br><br>
+                    <input class="form-control" type="number" name="noAgensi"/>
+                    <br>
+                    <button class="btn btn-primary" type="submit">Submit</button><br><br>
+                </form>
                 <a class="btn btn-primary" href="/agensi/add">Tambah Agensi</a>
                 <a class="btn btn-primary" href="/agensi/viewall">Lihat Semua</a>
             </div>

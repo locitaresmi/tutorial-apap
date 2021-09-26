@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,16 @@ public class TravelAgensiController {
     @Qualifier("travelAgensiServiceImpl")
     @Autowired
     private TravelAgensiService travelAgensiService;
+
+    @RequestMapping(value = "/agensi/view/", method = RequestMethod.GET)
+    public RedirectView searchAgensi(
+            @RequestParam("noAgensi") Long noAgensi,
+            Model model
+    ) {
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8080/agensi/view?noAgensi=" + noAgensi);
+        return redirectView;
+    }
 
     @GetMapping("/agensi/add")
     public String addAgensiFormPage(Model model) {
