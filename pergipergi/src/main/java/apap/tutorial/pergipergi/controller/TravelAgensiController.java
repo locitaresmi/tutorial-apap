@@ -1,125 +1,113 @@
 package apap.tutorial.pergipergi.controller;
 
+import apap.tutorial.pergipergi.model.TourGuideModel;
 import apap.tutorial.pergipergi.model.TravelAgensiModel;
 import apap.tutorial.pergipergi.service.TravelAgensiService;
+import org.apache.tomcat.jni.Local;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class TravelAgensiController {
+
+    @Qualifier("travelAgensiServiceImpl")
     @Autowired
     private TravelAgensiService travelAgensiService;
 
-    //Routing URL yang diinginkan
-    @RequestMapping("agensi/add")
-    public String addAgensi(
-            @RequestParam(value = "idAgensi", required = true) String idAgensi,
-            @RequestParam(value = "namaAgensi", required = true) String namaAgensi,
-            @RequestParam(value = "alamat", required = true) String alamat,
-            @RequestParam(value = "noTelepon", required = true) String noTelepon,
-            Model model
-    ){
-
-        //Membuat objek TravelAgensiModel
-        TravelAgensiModel agensi = new TravelAgensiModel(idAgensi, namaAgensi, alamat, noTelepon);
-
-        //Memanggil servis addAgensi
-        travelAgensiService.addAgensi(agensi);
-
-        //Add variabel id agensi ke 'idAgensi' untuk dirender di thymeleaf
-        model.addAttribute("idAgensi", idAgensi);
-
-        //return view template yang digunakan
-        return "add-agensi";
-
+    @GetMapping("/agensi/add")
+    public String addAgensiFormPage(Model model) {
+        model.addAttribute("agensi", new TravelAgensiModel());
+        return "form-add-agensi";
     }
 
-    @RequestMapping("agensi/viewAll")
+    @PostMapping("/agensi/add")
+    public String addAgensiSubmitPage(
+            @ModelAttribute TravelAgensiModel agensi,
+            Model model
+    ){
+        travelAgensiService.addAgensi(agensi);
+        model.addAttribute("noAgensi", agensi.getNoAgensi());
+        return "add-agensi";
+    }
+
+    @GetMapping("/agensi/viewall")
     public String listAgensi(Model model){
-        //Mendapatkan semua TravelAgensiModel
         List<TravelAgensiModel> listAgensi = travelAgensiService.getListAgensi();
-
-        //Add variabel semua TravelAgensiModel ke "listAgensi" untuk dirender pada thymeleaf
         model.addAttribute("listAgensi", listAgensi);
-
-        //Return view template yang diinginkan
         return "viewall-agensi";
     }
 
-    //@RequestMapping("agensi/view")
-    @GetMapping("agensi/view/id-agensi/{id}")
-    public String detailAgensi(
-            //@RequestParam(value = "idAgensi") String idAgensi,
-            @PathVariable("id") String idAgensi,
+    @GetMapping("/agensi/view")
+    public String viewDetailAgensiPage(
+            @RequestParam(value = "noAgensi") Long noAgensi,
             Model model
     ){
-        //Mendapatkan TravelAgensiModel sesuai dengan idAgensi
-        TravelAgensiModel agensi = travelAgensiService.getAgensiByidAgensi(idAgensi);
+        TravelAgensiModel agensi = travelAgensiService.getAgensiByNoAgensi(noAgensi);
+        List<TourGuideModel> listTourGuide = agensi.getListTourGuide();
 
-        if(agensi == null) {
-            model.addAttribute("request", "View");
-            return "error-agensi";
+        /** flag = true berarti agensi sedang dibuka */
+        Boolean flag = false;
+
+        /** flag = true berarti ada tour guide di agensi */
+        Boolean flagTourGuide = false;
+
+        if(!listTourGuide.isEmpty()) flagTourGuide = true;
+
+        LocalTime localTime = LocalTime.now();
+        if (localTime.compareTo(agensi.getWaktuBuka()) > 0 && localTime.compareTo(agensi.getWaktuTutup()) < 0){
+            flag = true;
+            if(!flagTourGuide) flagTourGuide = true;
         }
 
-        //Add variabel TravelAgensiModel ke "agensi" untuk dirender pada thymeleaf
         model.addAttribute("agensi", agensi);
+        model.addAttribute("listTourGuide", listTourGuide);
+        model.addAttribute( "flag", flag);
+        model.addAttribute( "flagTourGuide", flagTourGuide);
 
         return "view-agensi";
     }
 
-    @GetMapping("agensi/update/id-agensi/{id}/no-telepon/{no-telepon}")
-    public String ubahTelepon(
-            @PathVariable("id") String idAgensi,
-            @PathVariable("no-telepon") String noTelepon,
+    @GetMapping("/agensi/update/{noAgensi}")
+    public String updateAgensiFormPage(
+            @PathVariable Long noAgensi,
             Model model
     ){
-        //Mendapatkan TravelAgensiModel sesuai dengan idAgensi
-        TravelAgensiModel agensi = travelAgensiService.getAgensiByidAgensi(idAgensi);
+        TravelAgensiModel agensi = travelAgensiService.getAgensiByNoAgensi(noAgensi);
+        model.addAttribute("agensi", agensi);
+        return "form-update-agensi";
+    }
 
-        if(agensi == null) {
-            model.addAttribute("request", "Update");
-            return "error-agensi";
-        }
-
-        //Add variabel noTeleponLama untuk dirender pada thymeleaf
-        model.addAttribute("noTeleponLama", agensi.getNoTelepon());
-
-        //Memanggil method setter untuk mengubah no telepon agensi tersebut
-        agensi.setNoTelepon(noTelepon);
-
-        //Add variabel idAgensi dan noTeleponBaru untuk dirender pada thymeleaf
-        model.addAttribute("idAgensi", idAgensi);
-        model.addAttribute("noTeleponBaru", noTelepon);
-
+    @PostMapping("/agensi/update")
+    public String updateAgensiSubmitPage(
+            @ModelAttribute TravelAgensiModel agensi,
+            Model model
+    ){
+        TravelAgensiModel updatedAgensi = travelAgensiService.updateAgensi(agensi);
+        model.addAttribute("noAgensi", updatedAgensi.getNoAgensi());
         return "update-agensi";
     }
 
-    @GetMapping("agensi/delete/id-agensi/{id}")
+    @GetMapping("/agensi/delete/{noAgensi}")
     public String deleteAgensi(
-            @PathVariable("id") String idAgensi,
+            @PathVariable Long noAgensi,
             Model model
     ){
-        //Mendapatkan TravelAgensiModel sesuai dengan idAgensi
-        TravelAgensiModel agensi = travelAgensiService.getAgensiByidAgensi(idAgensi);
 
-        if(agensi == null) {
-            model.addAttribute("request", "Delete");
-            return "error-agensi";
-        }
+        TravelAgensiModel travelAgensi = travelAgensiService.getAgensiByNoAgensi(noAgensi);
+        model.addAttribute("noAgensi", noAgensi);
 
-        //Add variabel id agensi ke 'idAgensi' untuk dirender di thymeleaf
-        model.addAttribute("idAgensi", idAgensi);
-
-        //Menghapus data agensi dari listAgensi
-        travelAgensiService.getListAgensi().remove(agensi);
+        travelAgensiService.deleteAgensi(travelAgensi);
 
         return "delete-agensi";
     }
+
 }
