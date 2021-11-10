@@ -86,4 +86,21 @@ public class TourGuideController {
         return "delete-tour-guide";
     }
 
+    @PostMapping("/tour-guide/delete")
+    public String deleteTourGuideSubmit(
+            @ModelAttribute TravelAgensiModel agensi,
+            Model model
+    ){
+        if (travelAgensiService.isClosed(agensi.getWaktuBuka(), agensi.getWaktuTutup())){
+            for (TourGuideModel tourGuide : agensi.getListTourGuide()) {
+                tourGuideService.deleteTourGuide(tourGuide);
+            }
+            model.addAttribute("noAgensi", agensi.getNoAgensi());
+            return "delete-tour-guide";
+        }
+        model.addAttribute("activity", "Tour Guide tidak dapat dihapus");
+        model.addAttribute("Travel Agensi masih dibuka", agensi.getNoAgensi());
+        return "error-condition";
+    }
+
 }

@@ -3,10 +3,12 @@ package apap.tutorial.pergipergi.service;
 import apap.tutorial.pergipergi.model.TourGuideModel;
 import apap.tutorial.pergipergi.model.TravelAgensiModel;
 import apap.tutorial.pergipergi.repository.TravelAgensiDb;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +47,15 @@ public class TravelAgensiServiceImpl implements TravelAgensiService{
         TravelAgensiModel deletedAgensi = travelAgensi;
         travelAgensiDb.delete(travelAgensi);
         return deletedAgensi;
+    }
+
+    @Override
+    public boolean isClosed(LocalTime waktuBuka, LocalTime waktuTutup){
+        LocalTime now = LocalTime.now();
+        if (now.isBefore(waktuBuka) || now.isAfter(waktuTutup)){
+            return true;
+        }
+        return false;
     }
 
 }

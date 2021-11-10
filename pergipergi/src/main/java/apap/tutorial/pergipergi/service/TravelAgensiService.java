@@ -3,6 +3,7 @@ package apap.tutorial.pergipergi.service;
 import apap.tutorial.pergipergi.model.TourGuideModel;
 import apap.tutorial.pergipergi.model.TravelAgensiModel;
 
+import java.time.LocalTime;
 import java.util.List;
 
 public interface TravelAgensiService {
@@ -20,4 +21,7 @@ public interface TravelAgensiService {
 
     //Method untuk menghapus agensi
     TravelAgensiModel deleteAgensi(TravelAgensiModel travelAgensi);
+
+    //Method untuk mengecek apakah suatu agensi sedang ditutup atau tidak
+    boolean isClosed(LocalTime waktuBuka, LocalTime waktuTutup);
 }

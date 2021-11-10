@@ -4,6 +4,26 @@
 
 * **Wening Dyah Locitaresmi** - *1906299194* - *B*
 
+## [Tutorial 5](https://scele.cs.ui.ac.id/pluginfile.php/126964/mod_resource/content/6/Tutorial%205%20Kelas%20B%20v1.3-2.pdf)
+
+### Pertanyaan Tutorial
+
+1. Apa itu Postman? Apa kegunaannya?
+
+	Postman merupakan suatu tools yang dibuat untuk memudahkan developer dalam melakukan debugging serta testing pada API yang telah dibuatnya. Postman memudahkan kedua proses tersebut karena bentuknya berupa GUI (developer tidak harus melakukan debug/test pada CLI)
+
+2. Jelaskan fungsi dari anotasi @JsonIgnoreProperties dan @JsonProperty.
+
+	@JsonIgnoreProperties digunakan untuk mengabaikan fields tertentu pada level class. Hal ini digunakan ketika kita tidak ingin mengikutsertakan fields tersebut pada saat melakukan serialisasi JSON. @JsonProperty digunakan ketika kita ingin melakukan mapping nama suatu properti dengan salah satu key pada JSON saat melakukan serialisasi maupun deserialization.
+
+3. Apa kegunaan atribut WebClient?
+
+	Webclient digunakan ketika kita ingin mengirim atau mengambil data dari URI tertentu.
+
+4. Apa itu ResponseEntity dan BindingResult? Apa kegunaannya?
+
+	ResponseEntity merupakan representasi dari keseluruhan HTTP response, seperti status code, body, dan headers. Kita dapat menggunakannya ketika kita ingin melakukan kustomisasi terhadap HTTP response. BindingResult merupakan objek yang menyimpan hasil validasi serta kemungkinan error yang dapat muncul saat melakukan binding. Atribut ini harus digunakan ketika terjadi proses binding agar Spring dapat melakukan validasi selanjutnya.
+
 ## [Tutorial 3](https://scele.cs.ui.ac.id/pluginfile.php/122168/mod_resource/content/1/Tutorial%203%20Kelas%20B.pdf)
 
 ### Pertanyaan Tutorial
