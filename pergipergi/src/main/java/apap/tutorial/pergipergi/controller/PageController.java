@@ -4,13 +4,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class BaseController {
+public class PageController {
 
-    @GetMapping("/")
+    @RequestMapping("/")
     private String home(){
         return "home";
+    }
+
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
     }
 
     @GetMapping("/error/{errorCondition}")
@@ -40,5 +46,4 @@ public class BaseController {
         model.addAttribute("cause", cause);
         return "error-condition";
     }
-
 }

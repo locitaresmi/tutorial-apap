@@ -1,9 +1,7 @@
 package apap.tutorial.pergipergi.service;
 
-import apap.tutorial.pergipergi.model.TourGuideModel;
 import apap.tutorial.pergipergi.model.TravelAgensiModel;
 import apap.tutorial.pergipergi.repository.TravelAgensiDb;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
