@@ -72,4 +72,14 @@ public class DestinasiRestController {
         return destinasiRestService.retrieveListDestinasi();
     }
 
+    @GetMapping (value = "/visa/{visa}")
+    private List<DestinasiModel> getDestinasiByVisa(@PathVariable("visa") Boolean visa){
+        try {
+            return destinasiRestService.getDestinasiByVisa(visa);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Destinasi tidak ditemukan."
+            );
+        }
+    }
 }

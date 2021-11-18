@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -53,6 +54,28 @@ public class DestinasiRestServiceImpl implements DestinasiRestService{
     public void deleteDestinasi(Long noDestinasi){
         DestinasiModel destinasi = getDestinasiByNoDestinasi(noDestinasi);
         destinasiDb.delete(destinasi);
+    }
+
+    @Override
+    public List<DestinasiModel> getDestinasiByVisa(Boolean flag){
+
+        List<DestinasiModel> list = destinasiDb.findAll();
+
+        List<DestinasiModel> listBaru = new ArrayList<>();
+
+        if (flag){
+            for (DestinasiModel destinasi: list){
+                if (destinasi.getIsBebasVisa()){
+                    listBaru.add(destinasi);
+                }
+            } return listBaru;
+        } else {
+            for (DestinasiModel destinasi: list){
+                if (!destinasi.getIsBebasVisa()){
+                    listBaru.add(destinasi);
+                }
+            } return listBaru;
+        }
     }
 
 }

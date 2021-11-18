@@ -10,4 +10,5 @@ public interface DestinasiRestService {
     DestinasiModel getDestinasiByNoDestinasi(Long noAgensi);
     DestinasiModel updateDestinasi(Long noAgensi, DestinasiModel destinasiUpdate);
     void deleteDestinasi(Long noAgensi);
+    List<DestinasiModel> getDestinasiByVisa(Boolean flag);
 }
