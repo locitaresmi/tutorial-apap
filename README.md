@@ -1,26 +1,57 @@
+
 # Tutorial APAP
 
 ## Authors
 
 * **Wening Dyah Locitaresmi** - *1906299194* - *B*
 
+## [Tutorial 6](https://scele.cs.ui.ac.id/pluginfile.php/127578/mod_resource/content/3/Tutorial%206%20Kelas%20B.pdf)
+
+### Pertanyaan Tutorial
+
+1. Jelaskan secara singkat perbedaan **Otentikasi** dan **Otorisasi**! Di bagian mana (dalam kode yang telah anda buat) konsep tersebut diimplementasi?
+
+	Otentikasi merupakan proses validasi identitas dari pengguna. Contoh penerapannya adalah sistem Pergipergi hanya akan menerima request jika pengguna sudah terotentikasi (sudah log in). Jika belum, pengguna akan diarahkan ke halaman log in. Otentikasi tersebut diimplementasi pada potongan kode berikut.
+
+	`.anyRequest().authenticated()`
+	
+	Otorisasi merupakan proses validasi hak akses milik pengguna (dilakukan setelah proses otentikasi). Contoh penerapannya ketika hanya pengguna dengan role 'Admin' yang bisa mengakses halaman user/viewall. Salah satu implementasi dari otorisasi saya lakukan dalam kode berikut.
+
+	 `.antMatchers("/user/viewall").hasAuthority("Admin")`
+
+2. Apa itu **BCryptPasswordEncoder**? Jelaskan secara singkat cara kerja dan tujuannya.
+
+	BCryptPasswordEncoder merupakan modul yang digunakan untuk melakukan proses encoding. Modul ini digunakan untuk menyimpan tulisan tertentu (biasanya password) menjadi kode lain yang telah di-enkripsi menggunakan algoritma BCrypt. Tujuannya adalah agar password tidak dapat dibaca secara harfiah (dengan tujuan keamanan data).
+
+3. Apakah penyimpanan password sebaiknya menggunakan encryption atau hashing? Mengapa demikian?
+
+	Berdasarkan apa yang telah saya baca, password sebaiknya disimpan menggunakan hashing. Hal ini dikarenakan hashing sifatnya one-way (tidak dapat diterjemahkan kembali), sementara encryption sifatnya two-way, sehingga masih berisiko untuk di-decrypt (diterjemahkan) menjadi password yang sebenarnya.
+
+4. Jelaskan secara singkat apa itu **UUID** beserta penggunaannya.
+
+	UUID merupakan singkatan dari Universal Unique Identifier. UUID tujuannya sama seperti ID yang biasa diberikan kepada instance tertentu, yaitu untuk memberikan atribut pembeda antara satu instance dengan instance yang lainnya. Bedanya adalah UUID sifatnya universal, seperti namanya. Artinya, UUID dapat digunakan tidak terbatas pada suatu aplikasi saja, melainkan bisa digunakan dalam lingkup sistem yang lebih luas.
+
+5. Apa kegunaan class **UserDetailsServiceImpl**.java? Mengapa harus ada class tersebut?
+
+	UserDetailsServiceImpl merupakan suatu interface yang dapat digunakan untuk mengambil data pengguna. Class ini digunakan untuk mengimplementasi method loadUserByUsername, yang digunakan untuk mengambil informasi otentikasi serta otorisasi pengguna berdasarkan username-nya. Jika tidak digunakan, maka sistem tidak dapat melakukan proses otentikasi dan otorisasi.
+
 ## [Tutorial 5](https://scele.cs.ui.ac.id/pluginfile.php/126964/mod_resource/content/6/Tutorial%205%20Kelas%20B%20v1.3-2.pdf)
 
 ### Pertanyaan Tutorial
 
-1. Apa itu Postman? Apa kegunaannya?
+1. Apa itu **Postman**? Apa kegunaannya?
 
 	Postman merupakan suatu tools yang dibuat untuk memudahkan developer dalam melakukan debugging serta testing pada API yang telah dibuatnya. Postman memudahkan kedua proses tersebut karena bentuknya berupa GUI (developer tidak harus melakukan debug/test pada CLI)
 
-2. Jelaskan fungsi dari anotasi @JsonIgnoreProperties dan @JsonProperty.
+2. Jelaskan fungsi dari anotasi **@JsonIgnoreProperties** dan **@JsonProperty**.
 
 	@JsonIgnoreProperties digunakan untuk mengabaikan fields tertentu pada level class. Hal ini digunakan ketika kita tidak ingin mengikutsertakan fields tersebut pada saat melakukan serialisasi JSON. @JsonProperty digunakan ketika kita ingin melakukan mapping nama suatu properti dengan salah satu key pada JSON saat melakukan serialisasi maupun deserialization.
 
-3. Apa kegunaan atribut WebClient?
+3. Apa kegunaan atribut **WebClient**?
 
 	Webclient digunakan ketika kita ingin mengirim atau mengambil data dari URI tertentu.
 
-4. Apa itu ResponseEntity dan BindingResult? Apa kegunaannya?
+4. Apa itu **ResponseEntity** dan **BindingResult**? Apa kegunaannya?
 
 	ResponseEntity merupakan representasi dari keseluruhan HTTP response, seperti status code, body, dan headers. Kita dapat menggunakannya ketika kita ingin melakukan kustomisasi terhadap HTTP response. BindingResult merupakan objek yang menyimpan hasil validasi serta kemungkinan error yang dapat muncul saat melakukan binding. Atribut ini harus digunakan ketika terjadi proses binding agar Spring dapat melakukan validasi selanjutnya.
 
