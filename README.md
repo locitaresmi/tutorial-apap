@@ -5,6 +5,46 @@
 
 * **Wening Dyah Locitaresmi** - *1906299194* - *B*
 
+## [Tutorial 7](https://scele.cs.ui.ac.id/pluginfile.php/128277/mod_resource/content/1/Tutorial%207%20Kelas%20A_B_C.pdf)
+
+### Pertanyaan Tutorial
+
+1. Jelaskan apa yang Anda lakukan di latihan dalam satu paragraf per-soal. Berikan screenshot sebagai ilustrasi dari apa yang Anda jelaskan
+
+	a. Menghapus item dari cart
+
+	Saya membuat fungsi baru pada component HomeFunc dengan nama handleRemoveItemFromCart yang memiliki parameter berupa objek yang akan dihapus. Fungsi ini dipanggil ketika icon trash pada cart ditekan. Fungsi ini memanfaatkan method .splice() untuk menghapus item dari list item pada cart. Selain menghapus item, fungsi ini juga mengubah boolean inCart yang awalnya true menjadi false. Berikut adalah screenshot dari fungsi tersebut.
+	
+	![Implementasi Menghapus Item dari Cart](https://i.ibb.co/Gn0dBjM/message-Image-1637746746748.jpg)
+
+	b. Mengupdate balance
+
+	Saya membuat fungsi baru bernama updateBalance untuk mengimplementasikan fitur ini. Fungsi ini dipanggil melalui fungsi updateShopItem, yang dipanggil setiap kali ada penambahan/pengurangan items dari cart. Fungsi updateBalance menerima dua parameter, yaitu itemPrice dan inCart. inCart digunakan untuk menentukan apakah objek akan dihapus/ditambah dari cart, yang mana jika dihapus, maka balance akan bertambah sebesar itemPrice dan sebaliknya. Berikut adalah screenshot implementasinya.
+
+	![Implementasi Mengupdate Balance](https://i.ibb.co/jWGzxPt/message-Image-1637746776393.jpg)
+
+	c. Menambahkan alert ketika balance tidak cukup
+
+	Saya tidak membuat fungsi baru untuk menerapkan fitur ini, melainkan saya menambahkan beberapa command pada fungsi yang sudah ada, yaitu handleAddItemToCart. Saya menambahkan 'validator' pada fungsi ini sebelum method penambahan item ke cart dijalankan. 'Validator' tersebut memeriksa kesesuaian balance dengan harga yang dimiliki item yang akan ditambahkan. Jika harga item lebih mahal dari balance yang dimiliki, maka sebuah alert akan diberikan dan fungsi akan dihentikan. Berikut adalah screenshot implementasinya.
+
+	![Implementasi Alert](https://i.ibb.co/7g13f4d/1637746823612.jpg)
+	
+2. Menurut pemahaman kamu selama pengerjaan tutorial ini, apa perbedaan antara **state** dan **props**?
+
+	Menurut pemahaman saya, salah satu perbedaan yang paling menonjol antara state dan props yaitu, state digunakan untuk me-render perbedaan yang terjadi pada komponen, yang sifatnya dinamis dan dapat berubah-ubah. Di lain sisi, props cenderung tidak dapat diubah. Selain itu, props digunakan untuk media komunikasi antarkomponen, sementara state cenderung digunakan untuk keperluan internal suatu komponen.
+
+3. Menurut kamu, apakah sebaiknya kita menggunakan **component** (e.g. List, Item) dalam React? Sebutkan alasannya.
+
+	Menurut saya, penggunaan component bergantung pada kompleksitas website yang akan dibuat. Jika website cenderung memiliki kompleksitas yang tinggi, maka sebaiknya component digunakan untuk meminimalisir redundansi kode (duplicate code). Namun, jika website memiliki kompleksitas yang sangat rendah, ada/tidaknya component tidak begitu berpengaruh karena kemungkinan terdapat redundansi kodenya sangat kecil.
+
+4. Apa perbedaan **class component** dan **functional component**?
+
+	Class component merupakan stateful component yang dalam penggunaannya, kita perlu melakukan extend dari React. Functional component merupakan stateless component yang dalam penggunaannya tidak memerlukan extend dari React karena functional component hanya berisi fungsi JavaScript. Selain itu, kita dapat mengimplementasikan React lifecycle pada class component, namun kita tidak dapat melakukannya di dalam functional component.
+
+5. Dalam react, apakah **perbedaan component dan element**?
+
+	Secara sederhana, elemen merupakan deskripsi dari suatu DOM yang tidak dapat diubah (immutable). Elemen menjelaskan apa yang ditampilkan pada layar. Component, di sisi lain, dapat diberikan beragam perlakuan, seperti pemberian fungsi. Component dapat terdiri dari beberapa elemen, namun tidak sebaliknya.
+
 ## [Tutorial 6](https://scele.cs.ui.ac.id/pluginfile.php/127578/mod_resource/content/3/Tutorial%206%20Kelas%20B.pdf)
 
 ### Pertanyaan Tutorial
