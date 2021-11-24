@@ -20,14 +20,42 @@ export class Home extends Component {
         };
     }
 
+    //Latihan 2
+    updateBalance = (itemPrice, inCart) => {
+        if (inCart) {
+            this.setState({ balance: this.state.balance-itemPrice})
+        } else {
+            this.setState({ balance: this.state.balance+itemPrice})
+        }
+    }
+
     handleAddItemToCart = (item) => {
         const newItems = [...this.state.cartItems];
         const newItem = { ...item };
         const targetInd = newItems.findIndex((it) => it.id === newItem.id);
+
         if (targetInd < 0) {
+            if (this.state.balance < newItem.price) {
+                //Latihan 3
+                alert("Balance not sufficient!");
+                return;
+            }
             newItem.inCart = true;
             newItems.push(newItem);
             this.updateShopItem(newItem, true)
+        }
+        this.setState({ cartItems: newItems });
+    }
+
+    //Latihan 1
+    handleRemoveItemFromCart = (item) => {
+        const newItems = [...this.state.cartItems];
+        const removedItem = { ...item };
+        const targetInd = newItems.findIndex((it) => it.id === removedItem.id);
+        if (targetInd >= 0) {
+            removedItem.inCart = false;
+            newItems.splice(targetInd, 1);
+            this.updateShopItem(removedItem, false)
         }
         this.setState({ cartItems: newItems });
     }
@@ -36,6 +64,7 @@ export class Home extends Component {
         const tempShopItems = this.state.shopItems;
         const targetInd = tempShopItems.findIndex((it) => it.id === item.id);
         tempShopItems[targetInd].inCart = inCart;
+        this.updateBalance(item.price, tempShopItems[targetInd].inCart);
         this.setState({ shopItems: tempShopItems });
     }
 
@@ -65,7 +94,7 @@ export class Home extends Component {
                                 <List
                                     title="My Cart"
                                     items={this.state.cartItems}
-                                    onItemClick={() => {}}
+                                    onItemClick={this.handleRemoveItemFromCart}
                                 ></List>
                             </div>
                         ) : 
