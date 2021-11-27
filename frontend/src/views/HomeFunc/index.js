@@ -82,6 +82,16 @@ function App() {
         setCartItems(newItems)
     }
 
+    function deleteAllItemsFromCart(){
+        var newItems = [...cartItems]
+        for (var i in newItems){
+            updateShopItem(newItems[i], false)
+        }
+        newItems = []
+        setBalance(120)
+        setCartItems(newItems)
+    }
+
     return (
         <div className="container-fluid">
             <h1 className="text-center mt-3 mb-0">Mini Commerce</h1>
@@ -98,6 +108,13 @@ function App() {
             (this is a <strong>function-based</strong> application)
             </p>
             <p className="text-center text-primary" >Your Balance: <b>{balance}</b> </p>
+            {!cartHidden ? (
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                    <button className="btn btn-primary align-items-center" onClick={deleteAllItemsFromCart}>Delete All</button>
+                    </div>
+                </div>
+            ) : null}
             <div className="container pt-3">
                 <div className="row mt-3">
                     {!cartHidden ? (
