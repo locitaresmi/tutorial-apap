@@ -29,6 +29,7 @@ const Item = (props) => {
                             placeholder="Kuantitas"
                             name="cartQuantity"
                             onChange={handleChangeField}
+                            min="1"
                         />
                         <Button action={handleAddToCart}>
                             Add to cart
