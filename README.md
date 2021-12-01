@@ -5,6 +5,46 @@
 
 * **Wening Dyah Locitaresmi** - *1906299194* - *B*
 
+## [Tutorial 8](https://scele.cs.ui.ac.id/pluginfile.php/128869/mod_resource/content/0/Tutorial%208%20Minicommerce.docx-2.pdf)
+
+### Pertanyaan Tutorial
+
+1. Ceritakan langkah - langkah yang kalian lakukan untuk solve LATIHAN no.1, dan mengapa kalian melakukan langkah - langkah tersebut?
+
+	Alasan mengapa masih terdapat isian form tambah item sebelumnya adalah karena state masih menyimpan atribut formulir sebelumnya. Hal ini dikarenakan terdapat fungsi HandleFieldChange yang mengubah state id, nama, dsb. sesuai dengan apa yang diketikkan pada form. Pada kasus saya, hal ini terjadi saat saya menekan tombol "Add Item" setelah berusaha mengedit item (namun tidak jadi, karena saya tekan tombol "Cancel". Oleh karena itu, saya menambahkan method setState pada fungsi HandleCancel yang mengubah state seluruh atribut item menjadi kosong/default state. Berikut adalah tampilan kode yang saya tambahkan.
+
+	![Implementasi Kode](https://i.ibb.co/YLs2mN3/Screenshot-2021-12-01-214729.png)
+
+2. Jelaskan fungsi dari **async** dan **await**!
+
+	Async dan await merupakan fungsi JavaScript untuk melakukan pemanggilan asinkronus dengan lebih 'bersih'. Hal tersebut dikarenakan adanya cara lain untuk melakukan pemanggilan asinkronus, namun harus menggunakan method yang lebih rumit dan tidak sederhana. Async secara sederhana menjanjikan suatu value untuk di-return yang disebut 'Promise'. Sementara await digunakan untuk menunggu 'Promise' tersebut. Pada implementasinya menggunakan API, await digunakan untuk menunggu data berhasil di-push/put/get/delete.
+
+3. Masukkan jawaban dari Screenshot yang diperintahkan di halaman 9 pada Component Lifecycle pada pertanyaan ini.
+
+	a. Menulis kode sesuai perintah, dengan menambahkan method componentDidMount dan shouldComponentUpdate
+	
+	![Step 1](https://i.ibb.co/zZTY6PM/Screenshot-2021-12-01-223601.png)
+
+	b. Menjalankan aplikasi pertama kali
+	
+	![Step 2](https://i.ibb.co/ScXw2kb/Screenshot-2021-12-01-223951.png)
+
+	c. Menjalankan aplikasi setelah ditambahkan method handleClickLoading
+
+	![Step 3](https://i.ibb.co/8YvCG7L/Screenshot-2021-12-01-224223.png)
+	
+4. Jelaskan fungsi dari **componentDidMount**, **shouldComponentUpdate**, **componentDidUpdate**, **componentWillReceiveProps**, **componentWillUnmount**. Notes : Penjelasan harus mencantumkan “kapan fungsi dipanggil” dan “use case apa saja yang biasanya menggunakan lifecycle method tersebut”.
+
+	a. **componentDidMount**: Merupakan method/'state' pada lifecycle setelah komponen berhasil di-mounting atau dalam kata lain, berhasil di-render. Contohnya adalah ketika kita berhasil me-load seluruh komponen saat melakukan render pertama kali. Contohnya adalah saat kita ingin memastikan bahwa seluruh komponen telah siap untuk diisi dengan data dari API tertentu.
+
+	b. **shouldComponentUpdate**: Merupakan penanda apakah suatu komponen harus di-render ulang atau tidak. Biasanya method ini dipanggil ketika adanya perubahan data pada suatu komponen, yang mana, berarti method ini akan me-return boolean true. Jika sebaliknya, maka boolean yang di-return adalah false.
+	
+	c. **componentDidUpdate**: Method ini serupa dengan method componentDidMount. Perbedaannya adalah method ini menandakan lifecycle setelah suatu komponen berhasil di-render ulang. Method ini dapat dipanggil saat kita ingin memastikan bahwa komponen yang mengalami perubahan data telah berhasil di-update atau di-render ulang. Contohnya, adalah ketika kita ingin mengubah data lain yang bergantung pada komponen yang di-render ulang, namun harus dipastikan dulu apakah komponennya sudah di-render ulang atau belum.
+
+	d. **componentWillReceiveProps**: Method ini akan dieksekusi ketika suatu komponen akan menerima perubahan props tertentu. Contoh penggunaannya dapat diterapkan ketika kita ingin melakukan konfirmasi ulang kepada user ketika user melakukan perubahan tertentu pada bagian website.
+
+	e. **componentWillUnmount**: Method ini akan dieksekusi ketika suatu komponen akan dihapus dari DOM. Dalam kata lain, dihilangkan dari view user. Method ini juga dapat digunakan untuk melakukan konfirmasi ulang kepada user, misalnya ketika user menghapus sesuatu dari website.
+
 ## [Tutorial 7](https://scele.cs.ui.ac.id/pluginfile.php/128277/mod_resource/content/1/Tutorial%207%20Kelas%20A_B_C.pdf)
 
 ### Pertanyaan Tutorial
@@ -16,28 +56,37 @@
 	Saya membuat fungsi baru pada component Home dengan nama handleRemoveItemFromCart yang memiliki parameter berupa objek yang akan dihapus. Fungsi ini dipanggil ketika icon trash pada cart ditekan. Fungsi ini memanfaatkan method .splice() untuk menghapus item dari list item pada cart. Selain menghapus item, fungsi ini juga mengubah boolean inCart yang awalnya true menjadi false. Saya juga menambahkan trigger onItemClick untuk fungsi tersebut pada elemen List. Berikut adalah screenshot dari fungsi handleRemoveItemFromCart. 
 
 	Class-based:
+	
 	![Implementasi Menghapus Item dari Cart](https://i.ibb.co/7WsS4Y0/1637751050482.jpg)
 	
-	Function-based:![Implementasi Menghapus Item dari Cart](https://i.ibb.co/Gn0dBjM/message-Image-1637746746748.jpg)
+	Functional-based:
+
+	![Implementasi Menghapus Item dari Cart](https://i.ibb.co/Gn0dBjM/message-Image-1637746746748.jpg)
 
 	b. Mengupdate balance
 
 	Saya membuat fungsi baru bernama updateBalance untuk mengimplementasikan fitur ini. Fungsi ini dipanggil melalui fungsi updateShopItem, yang dipanggil setiap kali ada penambahan/pengurangan items dari cart. Fungsi updateBalance menerima dua parameter, yaitu itemPrice dan inCart. inCart digunakan untuk menentukan apakah objek akan dihapus/ditambah dari cart, yang mana jika dihapus, maka balance akan bertambah sebesar itemPrice dan sebaliknya. Berikut adalah screenshot implementasinya.
 	
-	Class-based:![Implementasi Mengupdate Balance](https://i.ibb.co/nrcXmB5/1637751294691.jpg)
+	Class-based:
+
+	![Implementasi Mengupdate Balance](https://i.ibb.co/nrcXmB5/1637751294691.jpg)
 	![Implementasi Mengupdate Balance](https://i.ibb.co/34wr91M/1637751070877.jpg)
 
+	Functional-based:
 
-	Function-based:![Implementasi Mengupdate Balance](https://i.ibb.co/jWGzxPt/message-Image-1637746776393.jpg)
+	![Implementasi Mengupdate Balance](https://i.ibb.co/jWGzxPt/message-Image-1637746776393.jpg)
 
 	c. Menambahkan alert ketika balance tidak cukup
 
 	Saya tidak membuat fungsi baru untuk menerapkan fitur ini, melainkan saya menambahkan beberapa command pada fungsi yang sudah ada, yaitu handleAddItemToCart. Saya menambahkan 'validator' pada fungsi ini sebelum method penambahan item ke cart dijalankan. 'Validator' tersebut memeriksa kesesuaian balance dengan harga yang dimiliki item yang akan ditambahkan. Jika harga item lebih mahal dari balance yang dimiliki, maka sebuah alert akan diberikan dan fungsi akan dihentikan. Berikut adalah screenshot implementasinya.
+	
+	Class-based:
 
-	Class-Based:
-	![Implementasi Alert](https://i.ibb.co/dPTCsD3/1637751092141.jpg)
+	![enter image description here](https://i.ibb.co/dPTCsD3/1637751092141.jpg)
 
-	Function-based:![Implementasi Alert](https://i.ibb.co/7g13f4d/1637746823612.jpg)
+	Functional-based:
+	
+	![Implementasi Alert](https://i.ibb.co/7g13f4d/1637746823612.jpg)
 	
 2. Menurut pemahaman kamu selama pengerjaan tutorial ini, apa perbedaan antara **state** dan **props**?
 
@@ -237,4 +286,4 @@ berikut: http://localhost:8080/agensi/add?idAgensi=1&namaAgensi=Papa%20APAP&alam
 
 ### What I did not understand :confused:
 
- - [ ] Cara menghubungkan Controller, Model, dan View pada Spring
+ - [x] Cara menghubungkan Controller, Model, dan View pada Spring
