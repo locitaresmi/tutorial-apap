@@ -40,6 +40,7 @@ class ItemList extends Component {
     componentDidMount() {
         console.log("componentDidMount()");
         this.loadData();
+        this.getCartItems();
     }
 
     async loadData() {
@@ -119,7 +120,14 @@ class ItemList extends Component {
     async handleAddToCart(event, item) {
         event.preventDefault();
         try {
-            if (this.state.cartQuantity > item.quantity) {
+            const tempCartItems = [...this.state.cartItems]
+            var quantity = 0;
+            for (var i = 0; i < tempCartItems.length; i++) {
+                if (tempCartItems[i].item.id === item.id) {
+                    quantity = tempCartItems[i].quantity;
+                } 
+            }
+            if (this.state.cartQuantity > (item.quantity - quantity)) {
                 alert("Stok tidak mencukupi!")
                 return
             }
